@@ -1,0 +1,26 @@
+html, body {
+	height:100%;
+}
+
+#slider {
+	height:35%;
+	background-color:#262626;
+}
+
+#main-content {
+	height:60%;
+}
+
+#map {
+	height:100%;
+	background-color: blue;
+}
+
+#station-infos {
+	height:100%;
+}
+
+#reservation-status {
+	height:5%;
+	background-color: #262626;
+}
