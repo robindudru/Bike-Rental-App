@@ -14,7 +14,7 @@ const Map = {
 			map: this.map,
 			position: position,
 			title: title,
-			icon: 'D:/webprojects/Dev Web Jr/Velos/assets/marker/bike.png'
+			icon: 'https://github.com/robindupont/Bike-Rental-App/blob/master/assets/marker/bike.png'
 		});
 		this.markersArray.push(marker);
 	},
