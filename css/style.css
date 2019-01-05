@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+
 html, body {
 	height:100%;
+}
+
+#book {
+	font-family: 'Fjalla One', sans-serif;
+	color:#262626;
+	font-size: 1.5rem;
 }
 
 #slider {
@@ -17,10 +25,91 @@ html, body {
 }
 
 #station-infos {
+	position: relative;
 	height:100%;
+	padding:1% 1%;
+}
+
+#no-station {
+	position:absolute;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	top:0;
+	right:0;
+	height:100%;
+	width:100%;
+	z-index: 1;
+	background-color: #262626;
+	transition: all .3s ease;
+}
+
+#station-infos div{
+	color:#262626;
+	opacity:1;
+	transition: all .3s ease;
+}
+
+#station-header, #station-address {
+	margin-left:2px;
+}
+
+#no-station-text {
+	font-family: 'Fjalla One', sans-serif;
+	font-size: 1.7em;
+	color:white;
+	display:block;
+	transition:all .2s ease;
+}
+
+#station-title {
+	font-family: 'Fjalla One', sans-serif;
+	font-size: 1.8rem;
+	color: #262626;
+	margin-bottom: 3px;
+}
+
+#station-status {
+	font-family: 'Fjalla One', sans-serif;
+	color: #262626;
+	font-size: .8rem;
+	margin-top: 3px;
+	margin-left:3px;
+}
+
+#station-address {
+	font-family: 'Fjalla One', sans-serif;
+	color: #262626;
+}
+
+#avail-infos {
+	font-family: 'Fjalla One', sans-serif;
+	color:#262626;
+	margin-top: 20px;
+}
+
+#avail-stands, #avail-bikes {
+	float:left;
+	font-size: 4rem;
+	margin-right:5px;
+	margin-top: -15px;
+}
+
+#signature {
+	width:100%;
+	border:1px solid rgba(0,0,0,.1);
+	height:200px;
 }
 
 #reservation-status {
+	display: flex;
+	align-items: center;
 	height:5%;
 	background-color: #262626;
+	color:white;
+	font-family: 'Fjalla One', sans-serif;
+}
+
+#reservation-status p {
+	margin:auto 2%;
 }

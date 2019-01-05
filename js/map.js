@@ -13,14 +13,15 @@ const Map = {
 		marker = new google.maps.Marker({
 			map: this.map,
 			position: position,
-			title: title
+			title: title,
+			icon: 'D:/webprojects/Dev Web Jr/Velos/assets/marker/bike.png'
 		});
 		this.markersArray.push(marker);
 	},
-	cluster: function() {
+	cluster: function() {	
         new MarkerClusterer(this.map, this.markersArray,
         {
-            imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' 
+            imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
     }
 };
@@ -32,10 +33,15 @@ const Station = {
 		this.status = null;
 		this.stands = null;
 		this.avail_stands = null;
-		this.available = null; 
+		this.available = null;
 	},
 	clicked: function(data) {
-		this.name = data.name;
+		if (this.name === null) {
+			$('#no-station-text').fadeOut('fast', function(){
+				$('#no-station').css('width', '0', 'right', '100%');	
+			});
+		}
+		this.name = data.name.replace(/^[^A-Za-z]+/, '');
 		this.address = data.address;
 		this.status = data.status;
 		this.stands = data.bike_stands;
@@ -43,7 +49,17 @@ const Station = {
 		this.avail_bikes = data.available_bikes;
 	},
 	update: function() {
-		document.getElementById('station-infos').innerHTML = this.address;
+		if (this.status === 'OPEN') {
+			this.status = 'OUVERT';
+		}
+		else  if(this.status === 'CLOSED'){
+			this.status = 'FERMÉ';
+		}
+		$('#station-title').text(this.name);
+		$('#station-status').text('- ' + this.status);
+		$('#station-address').text(this.address);
+		$('#avail-stands').text(this.avail_stands);
+		$('#avail-bikes').text(this.avail_bikes);
 	}
 };
 
