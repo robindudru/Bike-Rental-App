@@ -42,7 +42,7 @@ const Station = {
 			});
 		}
 		this.name = data.name.replace(/^[^A-Za-z]+/, '');
-		this.address = data.address;
+		this.address = data.address.toUpperCase();
 		this.status = data.status;
 		this.stands = data.bike_stands;
 		this.avail_stands = data.available_bike_stands;

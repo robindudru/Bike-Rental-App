@@ -1,19 +1,131 @@
+/*##############
+####General#####
+##############*/
+
 @import url('https://fonts.googleapis.com/css?family=Fjalla+One');
 
 html, body {
 	height:100%;
+	overflow-x: hidden;
 }
 
-#book {
-	font-family: 'Fjalla One', sans-serif;
-	color:#262626;
-	font-size: 1.5rem;
-}
+/*#############
+####Slider#####
+#############*/
 
 #slider {
 	height:35%;
 	background-color:#262626;
 }
+
+#slider-wrapper div, #slider div {
+	height:100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#slider-wrapper {
+	width:100%;
+	height:100%;
+	position: relative;
+}
+
+#filter {
+	width:100%;
+	height: 100%;
+	position:absolute;
+	top:0;
+	left:0;
+	background-color: rgba(0,0,0,.3);
+	z-index: 2;
+}
+
+#slider h1, #slider h2, #slider p{
+	color:white;
+	font-family: 'Fjalla One', sans-serif;
+	margin:0 8%;
+	z-index: 3;
+}
+
+#slider h1, #slider h2 {
+	font-size: 3rem;
+}
+
+#slider p {
+	margin-top: 10px;
+	font-size: 1.5rem;
+}
+
+#prev, #next {
+	position:absolute;
+	display:flex;
+	align-items: center;
+	font-size: 2rem;
+	height:4vw!important;
+	width:4vw;
+	background-color: rgba(250,250,250,0.2);
+	border-radius: 50%;
+	z-index: 10;
+	transition: .5s;
+}
+
+#prev:hover, #next:hover, #pause:hover {
+	background-color: rgba(250,250,250,0.9);
+}
+
+#prev {
+	left:2%;
+}
+
+#next {
+	right:2%;
+}
+
+#pause {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	font-size: 1rem;
+	height: 2vw!important;
+	width: 2vw;
+	background-color: rgba(250,250,250,0.2);
+	border-radius: 50%;
+	z-index: 10;
+	transition: all .5s;
+	right:2%;
+	top:5%;
+}
+
+.slide{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+[id="1"] {
+	background-image: url('https://static.actu.fr/uploads/2014/11/cyclic1.JPG');
+	background-size: cover;
+	background-position: center;
+}
+
+[id="2"] {
+	background-image: url('https://france3-regions.francetvinfo.fr/normandie/sites/regions_france3/files/styles/top_big/public/assets/images/2018/09/05/img_8910-3828354.jpg?itok=qQwlcoTf');
+	background-size: cover;
+	background-position: bottom left;
+}
+
+[id="3"] {
+	background-image: url('https://france3-regions.francetvinfo.fr/paris-ile-de-france/sites/regions_france3/files/styles/top_big/public/assets/images/2018/03/15/87d0f236-2716-4e1e-aaaa-7d0af709ede3-3558487.jpg?itok=Py9gBdux');
+	background-size: cover;
+	background-position: bottom left;
+}
+
+/*##############
+####Booking#####
+##############*/
 
 #main-content {
 	height:60%;
@@ -96,10 +208,21 @@ html, body {
 }
 
 #signature {
-	width:100%;
+	width:300px;
 	border:1px solid rgba(0,0,0,.1);
 	height:200px;
 }
+
+#book {
+	font-family: 'Fjalla One', sans-serif;
+	color:#262626;
+	font-size: 1.5rem;
+}
+
+/*################
+####Reservation###
+######Footer######
+################*/
 
 #reservation-status {
 	display: flex;
@@ -113,3 +236,5 @@ html, body {
 #reservation-status p {
 	margin:auto 2%;
 }
+
+

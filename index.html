@@ -5,10 +5,35 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	</head>
 	<body>
 		<div class="container-fluid h-100">
 			<section class="row" id="slider">
+				<div id="slider-wrapper">
+					<div id="filter"></div>
+					<div id="prev"><i class="fas fa-chevron-left"></i></div>
+					<div id="next"><i class="fas fa-chevron-right"></i></div>
+					<div id="pause"><i class="fas fa-pause"></i></div>
+					<div class="slide" id="1">
+						<div>
+							<h1>Bienvenue sur l'application de réservation Cy'clic de la ville de Rouen</h1>
+							<p>Pour commencer votre réservation, trouvez et cliquez sur la station qui vous intéresse sur la carte ci-dessous.</p>
+						</div>
+					</div>
+					<div class="slide" id="2">
+						<div>
+							<h2>Commencer une réservation</h2>
+							<p>Un panneau s'ouvre pour vous donner toutes les informations sur la station. Si un vélo est disponible, remplissez le formulaire, signez, et cliquez sur Réserver</p>
+						</div>
+					</div>
+					<div class="slide" id="3">
+						<div>
+							<h2>Votre vélo est réservé</h2>
+							<p>Votre vélo est réservé pour 20 minutes, vous retrouvez le récapitulatif de votre réservation au bas de la page.</p>
+						</div>
+					</div>
+				</div>
 			</section>
 			<section class="row" id="main-content">
 				<div class="col-9 h-100" id="map">
@@ -39,7 +64,7 @@
 							<input type="text" id="surname" class="form-control col-5" placeholder="Prénom" required />
 							<input type="text" id="name" class="form-control col-5 offset-2" placeholder="Nom" required />
 						</div>
-						<canvas id="signature" class="mt-2"></canvas>
+						<canvas id="signature" class="col-10 offset-2 mt-2" width="300" height="200"></canvas>
 						<button type="submit" id="submit" class="btn btn-dark col-4 offset-4 mt-2"><b>Réserver</b></button>
 					</form>
 				</div>
@@ -52,8 +77,9 @@
     	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIYtUgzL0q-lshST4I2IcTFkOHtPiRA3Y&callback=initMap"></script>
 		<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+		<script src="js/slider.js"></script>
 		<script async defer src="js/map.js"></script>
 		<script async defer src="js/booking.js"></script>
-    	<!-- <script async defer src="js/signature.js"></script> -->
+    	<script async defer src="js/signature.js"></script>
 	</body>
 </html>

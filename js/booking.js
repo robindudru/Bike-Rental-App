@@ -1,23 +1,27 @@
 const Booking = {
 	submit: function(){
-		stationInfos.avail_bikes--;
-		stationInfos.update();
-		sessionStorage.setItem('station', stationInfos.name);
-		this.surname = document.getElementById('surname').value;
-		this.name = document.getElementById('name').value;
-		if (localStorage.getItem('surname') === null && localStorage.getItem('name') === null) {
-			localStorage.setItem('surname', this.surname);
-			localStorage.setItem('name', this.name);
+		if (stationInfos.avail_bikes < 1) { alert('Il n\'y a pas de vélo disponible à cette station'); }
+		else if (!hasSigned) { alert('Merci de signer le champ sous votre nom'); }
+		else {
+			stationInfos.avail_bikes--;
+			stationInfos.update();
+			sessionStorage.setItem('station', stationInfos.name);
+			this.surname = document.getElementById('surname').value;
+			this.name = document.getElementById('name').value;
+			if (localStorage.getItem('surname') === null && localStorage.getItem('name') === null) {
+				localStorage.setItem('surname', this.surname);
+				localStorage.setItem('name', this.name);
+			}
+			else if (localStorage.getItem('surname') !== this.surname || localStorage.getItem('name') !== this.name) {
+				localStorage.removeItem('surname');
+				localStorage.removeItem('name');
+				localStorage.setItem('surname', this.surname);
+				localStorage.setItem('name', this.name);
+			}
+			timer.init();
+			$('#reservation-message').text(this.surname.toUpperCase() + ' ' + this.name.toUpperCase() + ', VOUS AVEZ UN VÉLO RÉSERVÉ À LA STATION ' + stationInfos.name + ' PENDANT ');
+			$('#reservation-message').append('<span id="minutes">' + timer.minutes + '</span>mn<span id="seconds">' + timer.seconds + '</span>s');
 		}
-		else if (localStorage.getItem('surname') !== this.surname || localStorage.getItem('name') !== this.name) {
-			localStorage.removeItem('surname');
-			localStorage.removeItem('name');
-			localStorage.setItem('surname', this.surname);
-			localStorage.setItem('name', this.name);
-		}
-		timer.init();
-		$('#reservation-message').text(this.surname.toUpperCase() + ' ' + this.name.toUpperCase() + ', VOUS AVEZ UN VÉLO RÉSERVÉ à LA STATION ' + stationInfos.name + ' PENDANT ');
-		$('#reservation-message').append('<span id="minutes">' + timer.minutes + '</span>mn<span id="seconds">' + timer.seconds + '</span>s');
 	}
 };
 
@@ -60,6 +64,9 @@ const Timer = {
 	timeOver: function(){
 			clearInterval(this.interval);
 			$('#reservation-message').text('Votre réservation a expiré. Merci de renouveler votre demande.');
+			sessionStorage.removeItem('station');
+			sessionStorage.removeItem('minutes');
+			sessionStorage.removeItem('seconds');
 			this.minutes = 19;
 			this.seconds = 59;
 	},
