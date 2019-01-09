@@ -1,7 +1,7 @@
 const Booking = {
 	submit: function(){
 		if (stationInfos.avail_bikes < 1) { alert('Il n\'y a pas de vélo disponible à cette station'); }
-		else if (!hasSigned) { alert('Merci de signer le champ sous votre nom'); }
+		else if (!signaturePad.hasSigned) { alert('Merci de signer le champ sous votre nom'); }
 		else {
 			stationInfos.avail_bikes--;
 			stationInfos.update();

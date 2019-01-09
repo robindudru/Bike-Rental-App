@@ -70,7 +70,7 @@ html, body {
 	transition: .5s;
 }
 
-#prev:hover, #next:hover, #pause:hover {
+#prev:hover, #next:hover, #pause:hover, #play:hover {
 	background-color: rgba(250,250,250,0.9);
 }
 
@@ -82,7 +82,7 @@ html, body {
 	right:2%;
 }
 
-#pause {
+#pause, #play {
 	position: absolute;
 	display: flex;
 	align-items: center;
@@ -93,8 +93,15 @@ html, body {
 	border-radius: 50%;
 	z-index: 10;
 	transition: all .5s;
-	right:2%;
 	top:5%;
+}
+
+#pause {
+	right:2%;
+}
+
+#play {
+	right:5%;
 }
 
 .slide{

@@ -1,51 +1,64 @@
-const Slider = {
-	init: function(){
-		this.slideId = 0;
-		this.nextId = 1;
-		this.prevId = 2;
-		this.slides = document.querySelectorAll('.slide');
-		this.start();
-	},
+var Slider = function() {
+	this.slideId = 0;
+	this.nextId = 1;
+	this.prevId = 2;
+	this.slides = document.querySelectorAll('.slide');
+	this.autoSlide = null;
+	this.navListener();
+	this.start();
+}
+
+Slider.prototype = {
 
 	start: function(){
-		this.autoSlide = setInterval(this.next, 5000);
+		that = this;
+		this.autoSlide = setInterval(function(){that.next()}, 5000);
 	},
 
 	navListener: function(){
-			$('#next').on('click', this.next);
-			$(window).keydown(function(e){
-				if (e.which == 39) {
-					$('#next').click();
-				}
-			});
-			$('#prev').on('click', this.prev);
-			$(window).keydown(function(e){
-				if (e.which == 37) {
-					$('#prev').click();
-				}
-			});
-			$('#pause').on('click', this.stop);
+		that=this;
+		$('#next').on('click', function(){that.next()});
+		$(window).keydown(function(e){
+			if (e.which == 39) {
+				$('#next').click();
+			}
+		});
+		$('#prev').on('click', function(){that.prev()});
+		$(window).keydown(function(e){
+			if (e.which == 37) {
+				$('#prev').click();
+			}
+		});
+		$('#pause').on('click', function(){that.stop()});
+		$('#play').on('click', function(){that.start()});
 	},
 
 	prev: function(){
-		$(howTo.slides[howTo.slideId]).fadeOut('fast', function(){
-			$(howTo.slides[howTo.prevId]).fadeIn('fast');
-			howTo.prevUpdateIds();
+		that=this;
+		this.stop();
+		$(this.slides[this.slideId]).fadeOut('fast', function(){
+			console.log('fadeoutok');
+			$(that.slides[that.prevId]).fadeIn('fast');
+			that.prevUpdateIds();
 		});
+		this.start();
 	},
 
 	next: function(){
-		$(howTo.slides[howTo.slideId]).fadeOut('fast', function(){
-			$(howTo.slides[howTo.nextId]).fadeIn('fast');
-			howTo.nextUpdateIds();
+		that=this;
+		this.stop();
+		$(this.slides[this.slideId]).fadeOut('fast', function(){
+			$(that.slides[that.nextId]).fadeIn('fast');
+			that.nextUpdateIds();
 		});
+		this.start();
 	},
 
 	stop: function(){
-		clearInterval(howTo.autoSlide);
+		this.autoslide = clearInterval(this.autoSlide);
 	},
 
-	nextUpdateIds : function(){
+	nextUpdateIds: function(){
 		this.nextId++;
 		this.slideId++;
 		this.prevId++;
@@ -76,8 +89,8 @@ const Slider = {
 	}
 }
 
-const howTo = Object.create(Slider);
-howTo.init();
-howTo.navListener();
+
 $('#2').hide();
 $('#3').hide();
+
+var howTo = new Slider();

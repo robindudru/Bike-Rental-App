@@ -1,28 +1,43 @@
-const canvas = document.querySelector('#signature');
-const ctx = canvas.getContext('2d');
-
-ctx.lineWidth = 1;
-ctx.strokeStyle = '#262626';
-
-let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
-let hasSigned = false;
-
-function draw(e) {
-  if(!isDrawing) return;
-  hasSigned = true;
-  ctx.beginPath();
-  ctx.moveTo(lastX, lastY);
-  ctx.lineTo(e.offsetX, e.offsetY);
-  ctx.stroke();
-  [lastX, lastY] = [e.offsetX, e.offsetY];
+var Signature = function () {
+  this.canvas = document.querySelector('#signature');
+  this.ctx = this.canvas.getContext('2d');  
+  this.ctx.lineWidth = 1;
+  this.ctx.strokeStyle = '#262626';
+  this.isDrawing = false;
+  this.lastX = 0;
+  this.lastY = 0;
+  this.hasSigned = false;
+  this.mouseListener();
 }
 
-canvas.addEventListener('mousedown', (e) => {
-  isDrawing = true;
-  [lastX, lastY] = [e.offsetX, e.offsetY];
-});
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', () => isDrawing = false);
-canvas.addEventListener('mouseout', () => isDrawing = false);
+Signature.prototype = {
+  mouseListener: function() {
+    signature = this;
+    $('#signature').on('mousedown', function(e){
+      signature.isDrawing = true;
+      [signature.lastX, signature.lastY] = [e.offsetX, e.offsetY];
+    });
+    $('#signature').on('mousemove', function(e){
+      signature.draw(e);
+    });
+    $('#signature').on('mouseup', () => {
+      signature.isDrawing = false;
+    });
+    $('#signature').on('mouseout', () => {
+      signature.isDrawing = false;
+    });
+  },
+
+  draw: function(e) {
+    signature = this;
+    if (!signature.isDrawing) return;
+    signature.hasSigned = true;
+    signature.ctx.beginPath();
+    signature.ctx.moveTo(signature.lastX, signature.lastY);
+    signature.ctx.lineTo(e.offsetX, e.offsetY);
+    signature.ctx.stroke();
+    [signature.lastX, signature.lastY] = [e.offsetX, e.offsetY];
+  }
+}
+
+var signaturePad = new Signature();
