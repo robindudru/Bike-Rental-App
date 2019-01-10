@@ -12,31 +12,31 @@ var Signature = function () {
 
 Signature.prototype = {
   mouseListener: function() {
-    signature = this;
+    let that = this;
     $('#signature').on('mousedown', function(e){
-      signature.isDrawing = true;
-      [signature.lastX, signature.lastY] = [e.offsetX, e.offsetY];
+      that.isDrawing = true;
+      [that.lastX, that.lastY] = [e.offsetX, e.offsetY];
     });
     $('#signature').on('mousemove', function(e){
-      signature.draw(e);
+      that.draw(e);
     });
     $('#signature').on('mouseup', () => {
-      signature.isDrawing = false;
+      that.isDrawing = false;
     });
     $('#signature').on('mouseout', () => {
-      signature.isDrawing = false;
+      that.isDrawing = false;
     });
   },
 
   draw: function(e) {
-    signature = this;
-    if (!signature.isDrawing) return;
-    signature.hasSigned = true;
-    signature.ctx.beginPath();
-    signature.ctx.moveTo(signature.lastX, signature.lastY);
-    signature.ctx.lineTo(e.offsetX, e.offsetY);
-    signature.ctx.stroke();
-    [signature.lastX, signature.lastY] = [e.offsetX, e.offsetY];
+    let that = this;
+    if (!that.isDrawing) return;
+    that.hasSigned = true;
+    that.ctx.beginPath();
+    that.ctx.moveTo(that.lastX, that.lastY);
+    that.ctx.lineTo(e.offsetX, e.offsetY);
+    that.ctx.stroke();
+    [that.lastX, that.lastY] = [e.offsetX, e.offsetY];
   }
 }
 

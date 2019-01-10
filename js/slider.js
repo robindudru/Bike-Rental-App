@@ -1,4 +1,4 @@
-var Slider = function() {
+const Slider = function() {
 	this.slideId = 0;
 	this.nextId = 1;
 	this.prevId = 2;
@@ -11,12 +11,12 @@ var Slider = function() {
 Slider.prototype = {
 
 	start: function(){
-		that = this;
+		let that = this;
 		this.autoSlide = setInterval(function(){that.next()}, 5000);
 	},
 
 	navListener: function(){
-		that=this;
+		let that = this;
 		$('#next').on('click', function(){that.next()});
 		$(window).keydown(function(e){
 			if (e.which == 39) {
@@ -29,15 +29,20 @@ Slider.prototype = {
 				$('#prev').click();
 			}
 		});
-		$('#pause').on('click', function(){that.stop()});
-		$('#play').on('click', function(){that.start()});
+		$('#pause').on('click', function(){
+			that.stop();
+			$('#pause-feedback').fadeIn(1).fadeOut(1500);
+		});
+		$('#play').on('click', function(){
+			that.start();
+			$('#play-feedback').fadeIn(1).fadeOut(1500);
+		});
 	},
 
 	prev: function(){
-		that=this;
+		let that = this;
 		this.stop();
 		$(this.slides[this.slideId]).fadeOut('fast', function(){
-			console.log('fadeoutok');
 			$(that.slides[that.prevId]).fadeIn('fast');
 			that.prevUpdateIds();
 		});
@@ -45,7 +50,7 @@ Slider.prototype = {
 	},
 
 	next: function(){
-		that=this;
+		let that = this;
 		this.stop();
 		$(this.slides[this.slideId]).fadeOut('fast', function(){
 			$(that.slides[that.nextId]).fadeIn('fast');
@@ -92,5 +97,7 @@ Slider.prototype = {
 
 $('#2').hide();
 $('#3').hide();
+$('#pause-feedback').hide();
+$('#play-feedback').hide();
 
 var howTo = new Slider();

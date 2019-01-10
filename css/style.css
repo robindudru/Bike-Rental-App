@@ -104,6 +104,18 @@ html, body {
 	right:5%;
 }
 
+#pause-feedback, #play-feedback {
+	position:absolute;
+	align-items: center;
+	font-size:5rem;
+	width:7vw;
+	height:7vw!important;
+	background-color: rgba(250,250,250,0.9);
+	border-radius: 50%;
+	z-index:10;
+	left: calc(50% - 2vw);
+}
+
 .slide{
 	width:100%;
 	height:100%;

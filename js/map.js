@@ -1,14 +1,15 @@
-const Map = {
-	init: function(lat, lng, zoom) {
-		this.map = new google.maps.Map(document.getElementById('map'), {
-				center: {
-					lat: lat,
-					lng: lng
-				},
-				zoom: zoom,
-		});
-		this.markersArray = [];
-	},
+const Map = function(lat, lng, zoom){
+	this.map = new google.maps.Map(document.getElementById('map'), {
+		center: {
+			lat: lat,
+			lng: lng
+		},
+		zoom: zoom,
+	});
+	this.markersArray = [];
+}
+
+Map.prototype = {
 	initMarker: function(position, title) {
 		marker = new google.maps.Marker({
 			map: this.map,
@@ -24,17 +25,28 @@ const Map = {
             imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
     }
-};
+}
 
-const Station = {
-	init: function(){
+const Station = function(){
 		this.name = null;
 		this.address = null;
 		this.status = null;
 		this.stands = null;
 		this.avail_stands = null;
 		this.available = null;
-	},
+		$.getJSON('https://api.jcdecaux.com/vls/v1/stations?contract=Rouen&apiKey=e034af446fba8014bb1eecadd35b88910fc35695', function(stationsList){
+			stationsList.forEach(function(data){
+				stationsMap.initMarker(data.position, data.name);
+				google.maps.event.addListener(marker, "click", function(){
+	        		stationInfos.clicked(data);
+	        		stationInfos.update();
+	    		});
+			});
+			stationsMap.cluster();
+		});
+}
+
+Station.prototype = {
 	clicked: function(data) {
 		if (this.name === null) {
 			$('#no-station-text').fadeOut('fast', function(){
@@ -61,21 +73,7 @@ const Station = {
 		$('#avail-stands').text(this.avail_stands);
 		$('#avail-bikes').text(this.avail_bikes);
 	}
-};
+}
 
-const stationsMap = Object.create(Map);
-stationsMap.init(49.437489866065405, 1.096252291204278, 14);
-
-const stationInfos = Object.create(Station);
-stationInfos.init();
-
-$.getJSON('https://api.jcdecaux.com/vls/v1/stations?contract=Rouen&apiKey=e034af446fba8014bb1eecadd35b88910fc35695', function(stationsList){
-	stationsList.forEach(function(data){
-		stationsMap.initMarker(data.position, data.name);
-		google.maps.event.addListener(marker, "click", function(){
-	        	stationInfos.clicked(data);
-	        	stationInfos.update();
-	    });
-	});
-	stationsMap.cluster();
-});
+const stationsMap = new Map(49.437489866065405, 1.096252291204278, 14);
+const stationInfos = new Station();

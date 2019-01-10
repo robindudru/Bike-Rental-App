@@ -1,4 +1,12 @@
-const Booking = {
+const Booking = function(){
+	let that = this;
+	$('form').on('submit', function(e){
+		e.preventDefault();
+		that.submit();
+	});
+}
+
+Booking.prototype = {
 	submit: function(){
 		if (stationInfos.avail_bikes < 1) { alert('Il n\'y a pas de vélo disponible à cette station'); }
 		else if (!signaturePad.hasSigned) { alert('Merci de signer le champ sous votre nom'); }
@@ -23,15 +31,20 @@ const Booking = {
 			$('#reservation-message').append('<span id="minutes">' + timer.minutes + '</span>mn<span id="seconds">' + timer.seconds + '</span>s');
 		}
 	}
-};
+}
 
-const Timer = {
+const Timer = function(){
+}
+
+Timer.prototype = {
 	init: function(){
 		this.minutes = 19;
 		this.seconds = 59;
 		sessionStorage.setItem('minutes', this.minutes);
 		sessionStorage.setItem('seconds', this.seconds);
-		this.interval = setInterval("timer.start()", 1000);
+		this.interval = clearInterval(this.interval);
+		let that = this;
+		this.interval = setInterval(function(){that.start()}, 1000);
 	},
 	start: function(){
 		if (this.seconds > 0) {
@@ -71,28 +84,24 @@ const Timer = {
 			this.seconds = 59;
 	},
 	resume: function(){
+		let that = this;
 		this.minutes = sessionStorage.getItem('minutes');
 		this.seconds = sessionStorage.getItem('seconds');
-		this.interval = setInterval("timer.start()", 1000);
+		this.interval = setInterval(function(){that.start()}, 1000);
 	}
-};
+}
+
+const newBooking = new Booking();
+const timer = new Timer();
+
 
 if (localStorage.getItem('surname') !== null && localStorage.getItem('name') !== null) {
 	document.getElementById('surname').value = localStorage.getItem('surname');
 	document.getElementById('name').value = localStorage.getItem('name');
 }
 
-const newBooking = Object.create(Booking);
-const timer = Object.create(Timer);
-
 if (sessionStorage.getItem('station') !== null) {
 	$('#reservation-message').text(localStorage.getItem('surname').toUpperCase() + ' ' + localStorage.getItem('name').toUpperCase() + ', VOUS AVEZ UN VÉLO RÉSERVÉ à LA STATION ' + sessionStorage.getItem('station') + ' PENDANT ');
 	$('#reservation-message').append('<span id="minutes">' + sessionStorage.getItem('minutes') + '</span>mn<span id="seconds">' + sessionStorage.getItem('seconds') + '</span>s');
 	timer.resume();
 }
-
-submitForm = document.querySelector('form');
-submitForm.addEventListener('submit', function(e){
-	e.preventDefault();
-	newBooking.submit();
-});
