@@ -1,17 +1,17 @@
-var Signature = function () {
-  this.canvas = document.querySelector('#signature');
-  this.ctx = this.canvas.getContext('2d');  
-  this.ctx.lineWidth = 1;
-  this.ctx.strokeStyle = '#262626';
-  this.isDrawing = false;
-  this.lastX = 0;
-  this.lastY = 0;
-  this.hasSigned = false;
-  this.mouseListener();
-}
+class Signature {
+  constructor(){
+    this.canvas = document.querySelector('#signature');
+    this.ctx = this.canvas.getContext('2d');  
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeStyle = '#262626';
+    this.isDrawing = false;
+    this.lastX = 0;
+    this.lastY = 0;
+    this.hasSigned = false;
+    this.mouseListener();
+  }
 
-Signature.prototype = {
-  mouseListener: function() {
+  mouseListener() {
     let that = this;
     $('#signature').on('mousedown', function(e){
       that.isDrawing = true;
@@ -26,9 +26,9 @@ Signature.prototype = {
     $('#signature').on('mouseout', () => {
       that.isDrawing = false;
     });
-  },
+  }
 
-  draw: function(e) {
+  draw(e) {
     let that = this;
     if (!that.isDrawing) return;
     that.hasSigned = true;
@@ -40,4 +40,4 @@ Signature.prototype = {
   }
 }
 
-var signaturePad = new Signature();
+const signaturePad = new Signature();

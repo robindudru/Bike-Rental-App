@@ -1,25 +1,30 @@
-const Map = function(lat, lng, zoom){
-	this.map = new google.maps.Map(document.getElementById('map'), {
-		center: {
-			lat: lat,
-			lng: lng
-		},
-		zoom: zoom,
-	});
-	this.markersArray = [];
-}
+class Bikemap {
+	constructor(lat, lng, zoom){
+		this.map = new google.maps.Map(document.getElementById('map'), {
+			center: {
+				lat: lat,
+				lng: lng
+			},
+			zoom: zoom,
+		});
+		this.markersArray = [];
+	}
 
-Map.prototype = {
-	initMarker: function(position, title) {
-		marker = new google.maps.Marker({
+	initMarker(position, title, data) {
+		let marker = new google.maps.Marker({
 			map: this.map,
 			position: position,
 			title: title,
 			icon: 'http://www.robindupontdruaux.fr/bike.png'
 		});
+		marker.addListener("click", function(){
+	        		stationInfos.clicked(data);
+	        		stationInfos.update();
+	    });
 		this.markersArray.push(marker);
-	},
-	cluster: function() {	
+	}
+
+	cluster() {	
         new MarkerClusterer(this.map, this.markersArray,
         {
             imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
@@ -27,7 +32,8 @@ Map.prototype = {
     }
 }
 
-const Station = function(){
+class Station {
+	constructor(){
 		this.name = null;
 		this.address = null;
 		this.status = null;
@@ -35,19 +41,12 @@ const Station = function(){
 		this.avail_stands = null;
 		this.available = null;
 		$.getJSON('https://api.jcdecaux.com/vls/v1/stations?contract=Rouen&apiKey=e034af446fba8014bb1eecadd35b88910fc35695', function(stationsList){
-			stationsList.forEach(function(data){
-				stationsMap.initMarker(data.position, data.name);
-				google.maps.event.addListener(marker, "click", function(){
-	        		stationInfos.clicked(data);
-	        		stationInfos.update();
-	    		});
-			});
+			stationsList.forEach(function(data){ stationsMap.initMarker(data.position, data.name, data); });
 			stationsMap.cluster();
 		});
-}
+	}
 
-Station.prototype = {
-	clicked: function(data) {
+	clicked(data) {
 		if (this.name === null) {
 			$('#no-station-text').fadeOut('fast', function(){
 				$('#no-station').css('width', '0', 'right', '100%');	
@@ -59,8 +58,9 @@ Station.prototype = {
 		this.stands = data.bike_stands;
 		this.avail_stands = data.available_bike_stands;
 		this.avail_bikes = data.available_bikes;
-	},
-	update: function() {
+	}
+
+	update() {
 		if (this.status === 'OPEN') {
 			this.status = 'OUVERT';
 		}
@@ -75,5 +75,5 @@ Station.prototype = {
 	}
 }
 
-const stationsMap = new Map(49.437489866065405, 1.096252291204278, 14);
+const stationsMap = new Bikemap(49.437489866065405, 1.096252291204278, 14);
 const stationInfos = new Station();

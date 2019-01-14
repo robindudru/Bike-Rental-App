@@ -1,13 +1,13 @@
-const Booking = function(){
+class Booking {
+	constructor(){
 	let that = this;
-	$('form').on('submit', function(e){
-		e.preventDefault();
-		that.submit();
-	});
-}
+		$('form').on('submit', function(e){
+			e.preventDefault();
+			that.submit();
+		});
+	}
 
-Booking.prototype = {
-	submit: function(){
+	submit(){
 		if (stationInfos.avail_bikes < 1) { alert('Il n\'y a pas de vélo disponible à cette station'); }
 		else if (!signaturePad.hasSigned) { alert('Merci de signer le champ sous votre nom'); }
 		else {
@@ -33,11 +33,8 @@ Booking.prototype = {
 	}
 }
 
-const Timer = function(){
-}
-
-Timer.prototype = {
-	init: function(){
+class Timer {
+	init(){
 		this.minutes = 19;
 		this.seconds = 59;
 		sessionStorage.setItem('minutes', this.minutes);
@@ -45,8 +42,9 @@ Timer.prototype = {
 		this.interval = clearInterval(this.interval);
 		let that = this;
 		this.interval = setInterval(function(){that.start()}, 1000);
-	},
-	start: function(){
+	}
+
+	start(){
 		if (this.seconds > 0) {
 			this.seconds--;
 			sessionStorage.setItem('seconds', this.seconds);
@@ -73,8 +71,9 @@ Timer.prototype = {
 		else if (this.minutes === 0 && this.minutes === 0){
 			this.timeOver();
 		}
-	},
-	timeOver: function(){
+	}
+
+	timeOver(){
 			clearInterval(this.interval);
 			$('#reservation-message').text('Votre réservation a expiré. Merci de renouveler votre demande.');
 			sessionStorage.removeItem('station');
@@ -82,8 +81,9 @@ Timer.prototype = {
 			sessionStorage.removeItem('seconds');
 			this.minutes = 19;
 			this.seconds = 59;
-	},
-	resume: function(){
+	}
+
+	resume(){
 		let that = this;
 		this.minutes = sessionStorage.getItem('minutes');
 		this.seconds = sessionStorage.getItem('seconds');
