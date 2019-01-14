@@ -20,6 +20,9 @@ class Bikemap {
 		marker.addListener("click", function(){
 	        		stationInfos.clicked(data);
 	        		stationInfos.update();
+	        		$('html, body').animate({
+	        			scrollTop: $('#submit').offset().top
+	        		}, 500);
 	    });
 		this.markersArray.push(marker);
 	}
@@ -75,5 +78,7 @@ class Station {
 	}
 }
 
-const stationsMap = new Bikemap(49.437489866065405, 1.096252291204278, 14);
+(window.innerWidth < 850 ) ? mapZoom = 13 : mapZoom = 14;
+
+const stationsMap = new Bikemap(49.437489866065405, 1.096252291204278, mapZoom);
 const stationInfos = new Station();

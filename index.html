@@ -4,6 +4,7 @@
   		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" media="(max-width: 850px)" href="css/style_smartphones.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 		<script async defer src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -59,17 +60,17 @@
 						<span id="no-station-text">Aucune station sélectionnée</span>
 					</div>
 					<div class="row" id="station-header">
-						<h1 id="station-title"></h1>
+						<h1 id="station-title">AUCUNE STATION SÉLECTIONNÉE</h1>
 						<div id="station-status"></div>
 					</div>
 					<div class="row" id="station-address"></div>
 					<div class="row" id="avail-infos">
 						<div class="col-5 offset-1">
-							<div id="avail-stands"></div>
+							<div id="avail-stands">-</div>
 							<div>STATIONS<br />DISPONIBLES</div>
 						</div>
 						<div class="col-5">
-							<div id="avail-bikes"></div>
+							<div id="avail-bikes">-</div>
 							<div>VÉLOS<br />DISPONIBLES</div>
 						</div>
 					</div>
@@ -77,10 +78,10 @@
 					<h2 id="book" class="mb-3">RÉSERVATION</h2>
 					<form class="form-group" id="booking-form">
 						<div class="form-inline">
-							<input type="text" id="surname" class="form-control col-5" placeholder="Prénom" required />
-							<input type="text" id="name" class="form-control col-5 offset-2" placeholder="Nom" required />
+							<input type="text" id="surname" class="form-control col-4 offset-1 offset-md-0 col-md-5" placeholder="Prénom" required />
+							<input type="text" id="name" class="form-control col-4 col-md-5 offset-2" placeholder="Nom" required />
 						</div>
-						<canvas id="signature" class="col-10 offset-2 mt-2" width="300" height="200"></canvas>
+						<canvas id="signature" class="col-10 offset-1 offset-md-2 mt-2" width="300" height="200"></canvas>
 						<button type="submit" id="submit" class="btn btn-dark col-4 offset-4 mt-2"><b>Réserver</b></button>
 					</form>
 				</div>
