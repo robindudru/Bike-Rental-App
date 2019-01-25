@@ -1,6 +1,6 @@
 class Signature {
   constructor(){
-    this.canvas = document.querySelector('#signature');
+    this.canvas = $('#signature')[0];
     this.ctx = this.canvas.getContext('2d');  
     this.ctx.lineWidth = 1;
     this.ctx.strokeStyle = '#262626';
@@ -12,32 +12,30 @@ class Signature {
   }
 
   mouseListener() {
-    let that = this;
-    $('#signature').on('mousedown', function(e){
-      that.isDrawing = true;
-      [that.lastX, that.lastY] = [e.offsetX, e.offsetY];
+    const _this = this;
+    $('#signature').on('mousedown', (e) => {
+      _this.isDrawing = true;
+      [_this.lastX, _this.lastY] = [e.offsetX, e.offsetY];
     });
-    $('#signature').on('mousemove', function(e){
-      that.draw(e);
+    $('#signature').on('mousemove', (e) => {
+      _this.draw(e);
     });
     $('#signature').on('mouseup', () => {
-      that.isDrawing = false;
+      _this.isDrawing = false;
     });
     $('#signature').on('mouseout', () => {
-      that.isDrawing = false;
+      _this.isDrawing = false;
     });
   }
 
   draw(e) {
-    let that = this;
-    if (!that.isDrawing) return;
-    that.hasSigned = true;
-    that.ctx.beginPath();
-    that.ctx.moveTo(that.lastX, that.lastY);
-    that.ctx.lineTo(e.offsetX, e.offsetY);
-    that.ctx.stroke();
-    [that.lastX, that.lastY] = [e.offsetX, e.offsetY];
+    const _this = this;
+    if (!_this.isDrawing) return;
+    _this.hasSigned = true;
+    _this.ctx.beginPath();
+    _this.ctx.moveTo(_this.lastX, _this.lastY);
+    _this.ctx.lineTo(e.offsetX, e.offsetY);
+    _this.ctx.stroke();
+    [_this.lastX, _this.lastY] = [e.offsetX, e.offsetY];
   }
 }
-
-const signaturePad = new Signature();

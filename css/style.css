@@ -124,19 +124,19 @@ html, body {
 	left:0;
 }
 
-[id="1"] {
+#slide1 {
 	background-image: url('https://static.actu.fr/uploads/2014/11/cyclic1.JPG');
 	background-size: cover;
 	background-position: center;
 }
 
-[id="2"] {
+#slide2{
 	background-image: url('https://france3-regions.francetvinfo.fr/normandie/sites/regions_france3/files/styles/top_big/public/assets/images/2018/09/05/img_8910-3828354.jpg?itok=qQwlcoTf');
 	background-size: cover;
 	background-position: bottom left;
 }
 
-[id="3"] {
+#slide3 {
 	background-image: url('https://france3-regions.francetvinfo.fr/paris-ile-de-france/sites/regions_france3/files/styles/top_big/public/assets/images/2018/03/15/87d0f236-2716-4e1e-aaaa-7d0af709ede3-3558487.jpg?itok=Py9gBdux');
 	background-size: cover;
 	background-position: bottom left;
@@ -144,37 +144,32 @@ html, body {
 
 #progress-bar {
 	position: absolute;
-	display: inline-flex;
+	display: flex;
 	z-index: 10;
 	width:100%;
-	height:2vw!important;
+	height:1vw!important;
 	bottom:5%;
 }
 
-#slide0, #slide1, #slide2 {
-	position: absolute;
-	height:2vw!important;
-	width:2vw;
+#slide-progress-bar0, #slide-progress-bar1, #slide-progress-bar2 {
+	position:absolute;
+	height:1vw!important;
+	width:1vw;
 	border-radius: 50%;
 	z-index: 10;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 2rem;
-	font-family: 'Fjalla One', sans-serif;
 	background-color: rgba(250,250,250,0.2);
 }
 
-#slide0 {
-	left:42%;
+#slide-progress-bar0 {
+	left: 48%;
 }
 
-#slide1 {
-	left:47%;
+#slide-progress-bar1 {
+	left: 50%;
 }
 
-#slide2 {
-	left:52%;
+#slide-progress-bar2 {
+	left: 52%;
 }
 
 /*##############
