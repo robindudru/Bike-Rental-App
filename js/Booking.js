@@ -8,12 +8,18 @@ class Booking {
 	}
 
 	submit(){
-		if (stationInfos.avail_bikes < 1) { alert('Il n\'y a pas de vélo disponible à cette station'); }
+		let currentId = sessionStorage.activeStation;
+		let prevId = sessionStorage.stationId;
+		let prevStation = stationsMap.stationsList.stationsArray[prevId];
+		let station = stationsMap.stationsList.stationsArray[currentId];
+		if (station.avail_bikes < 1) { alert('Il n\'y a pas de vélo disponible à cette station'); }
 		else if (!signaturePad.hasSigned) { alert('Merci de signer le champ sous votre nom'); }
 		else {
-			stationInfos.avail_bikes--;
-			stationInfos.update();
-			sessionStorage.setItem('station', stationInfos.name);
+			if (prevId) { prevStation.available++; };
+			station.available--;
+			station.update();
+			sessionStorage.setItem('station', station.name);
+			sessionStorage.setItem('stationId', station.id);
 			this.surname = $('#surname').val();
 			this.name = $('#name').val();
 			localStorage.setItem('surname', this.surname);
@@ -21,7 +27,7 @@ class Booking {
 		}
 		timer.init();
 		$('#reservation-message').html(`
-			${this.surname.toUpperCase()} ${this.name.toUpperCase()}, VOUS AVEZ UN VÉLO RÉSERVÉ À LA STATION ${stationInfos.name} PENDANT 
+			${this.surname.toUpperCase()} ${this.name.toUpperCase()}, VOUS AVEZ UN VÉLO RÉSERVÉ À LA STATION ${station.name} PENDANT 
 			<span id="minutes">${timer.minutes}</span>mn<span id="seconds">${timer.seconds}</span>s`
 		);
 	}

@@ -9,9 +9,10 @@ class Bikemap {
 			zoom: mapZoom,
 		});
 		this.markersArray = [];
+		this.stationsList = new StationsList();
 	}
 
-	initMarker(position, title, data) {
+	initMarker(position, title, station) {
 		let marker = new google.maps.Marker({
 			map: this.map,
 			position: position,
@@ -19,8 +20,8 @@ class Bikemap {
 			icon: 'http://www.robindupontdruaux.fr/bike.png'
 		});
 		marker.addListener("click", () => {
-	        		stationInfos.clicked(data);
-	        		stationInfos.update();
+	        		station.clicked();
+	        		station.update();
 	        		$('html, body').animate({
 	        			scrollTop: $('#submit').offset().top
 	        		}, 500);
@@ -28,7 +29,7 @@ class Bikemap {
 		this.markersArray.push(marker);
 	}
 
-	cluster() {	
+	cluster() {
         new MarkerClusterer(this.map, this.markersArray, {
         	imagePath : 'http://www.robindupontdruaux.fr/',
         });

@@ -32,6 +32,7 @@ class Timer {
 		clearInterval(this.interval);
 		$('#reservation-message').text('Votre réservation a expiré. Merci de renouveler votre demande.');
 		sessionStorage.removeItem('station');
+		sessionStorage.removeItem('stationId');
 		sessionStorage.removeItem('minutes');
 		sessionStorage.removeItem('seconds');
 		this.minutes = 19;
